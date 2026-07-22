@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeafGuard — Plant Disease Classifier</title>
+    <!-- Modern typography from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-decor blur-circle-1"></div>
+    <div class="background-decor blur-circle-2"></div>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <span class="logo-icon">🌿</span>
+                <h1>LeafGuard</h1>
+            </div>
+            <p class="subtitle">AI-powered agricultural disease diagnostics tool. Portfolio project for Celebal Technologies.</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Upload Panel -->
+            <section class="card upload-card">
+                <div class="card-header">
+                    <h2>Diagnose Plant Leaf</h2>
+                    <p>Upload an image of a potato leaf to analyze its health state</p>
+                </div>
+                
+                <div class="drop-zone" id="drop-zone">
+                    <div class="drop-zone-content" id="drop-zone-prompt">
+                        <div class="upload-icon">📤</div>
+                        <p class="upload-text"><strong>Drag & drop leaf photo here</strong> or <span class="browse-btn">Browse files</span></p>
+                        <p class="file-limits">Supports JPG, JPEG, PNG</p>
+                    </div>
+                    <input type="file" id="file-input" accept="image/*" class="file-input">
+                    <img id="image-preview" class="image-preview" alt="Leaf Preview">
+                </div>
+
+                <div class="action-bar">
+                    <button id="analyse-btn" class="btn btn-primary" disabled>
+                        <span class="btn-text">Analyze Image</span>
+                        <span class="spinner" id="btn-spinner"></span>
+                    </button>
+                    <button id="clear-btn" class="btn btn-secondary" style="display: none;">Clear</button>
+                </div>
+            </section>
+
+            <!-- Results Panel -->
+            <section class="card results-card" id="results-card" style="display: none;">
+                <div class="card-header">
+                    <h2>Diagnostic Results</h2>
+                    <p id="diagnostic-time">Analysis completed successfully</p>
+                </div>
+
+                <div class="result-display">
+                    <!-- Primary Class Diagnosis -->
+                    <div class="primary-diagnosis">
+                        <div class="diagnosis-badge" id="diagnosis-badge">Potato - Healthy</div>
+                        <div class="confidence-container">
+                            <span class="label">Confidence</span>
+                            <span class="confidence-value" id="confidence-value">0.0%</span>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" id="primary-progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alternate Predictions / Class probabilities -->
+                    <div class="alternatives-section">
+                        <h3>Analysis Breakdown</h3>
+                        <div class="alternatives-list" id="alternatives-list">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Recommendations Section -->
+                    <div class="recommendations-section" id="recommendations-section">
+                        <h3>Diagnostic Reference</h3>
+                        <div class="recommendation-card" id="rec-card">
+                            <p class="rec-title" id="rec-title">Potato Early Blight Detected</p>
+                            <p class="rec-desc" id="rec-desc">...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <div class="footer-info">
+                <p><strong>LeafGuard</strong> is powered by MobileNetV2 Transfer Learning.</p>
+                <p class="meta-tag">Accuracy: ~95% | Target Crop: Potato (3 classes) | CPU Deployment</p>
+            </div>
+            <p class="copyright">&copy; 2026 Keshav Sarda. Designed for Data Science Portfolio.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

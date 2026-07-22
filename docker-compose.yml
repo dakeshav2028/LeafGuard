@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  leafguard:
+    build: .
+    image: leafguard:latest
+    container_name: leafguard_app
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+    restart: unless-stopped
