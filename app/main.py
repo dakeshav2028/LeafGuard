@@ -6,9 +6,13 @@ from fastapi.responses import FileResponse
 from contextlib import asynccontextmanager
 from app.model_utils import ModelHandler
 
+# BASE_DIR = the app/ folder itself; project root is one level up
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(BASE_DIR)
+
 # Paths to the model and classes text file generated during training
-MODEL_PATH = "c:/MY_PROJECTS/Image_Classification_web_app/models/plant_disease_model.keras"
-CLASSES_PATH = "c:/MY_PROJECTS/Image_Classification_web_app/evaluation/classes.txt"
+MODEL_PATH = os.path.join(PROJECT_ROOT, "models", "plant_disease_model.keras")
+CLASSES_PATH = os.path.join(PROJECT_ROOT, "evaluation", "classes.txt")
 
 # Initialize our model helper instance
 model_handler = ModelHandler(model_path=MODEL_PATH, classes_path=CLASSES_PATH)
@@ -77,7 +81,7 @@ async def predict(file: UploadFile = File(...)):
 
 # Mount the static frontend files
 # This serves the user interface at the root URL (http://localhost:8000/)
-FRONTEND_DIR = "c:/MY_PROJECTS/Image_Classification_web_app/frontend"
+FRONTEND_DIR = os.path.join(PROJECT_ROOT, "frontend")
 if os.path.exists(FRONTEND_DIR):
     # Route for serving the main UI index file
     @app.get("/")
