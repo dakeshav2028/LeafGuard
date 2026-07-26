@@ -65,6 +65,33 @@ body {
     right: -150px;
 }
 
+.sparkle-icon {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    color: rgba(255, 255, 255, 0.04);
+    bottom: 8%;
+    right: 8%;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(1.5px);
+    animation: sparkle-pulse 6s infinite alternate ease-in-out;
+    opacity: 0.8;
+}
+
+@keyframes sparkle-pulse {
+    0% {
+        transform: scale(0.9) rotate(0deg);
+        filter: blur(1px);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1.1) rotate(15deg);
+        filter: blur(2px);
+        opacity: 0.7;
+    }
+}
+
 /* App Container Layout */
 .app-container {
     width: 100%;
@@ -129,6 +156,19 @@ body {
         justify-content: center;
         align-items: flex-start;
     }
+}
+
+/* Centered Layout when Results are Hidden */
+.main-content.results-hidden {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content.results-hidden .upload-card {
+    flex: none;
+    max-width: 600px;
+    width: 100%;
 }
 
 /* Card Sizing and Alignment */
