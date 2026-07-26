@@ -116,4 +116,4 @@ With more time, compute budget, and diverse datasets, the following steps would 
 *   **Diverse Data Augmentation:** Use Albumentations to inject background noise, shadows, and blur to mimic field photography conditions.
 *   **Open-World Classification:** Append an "Out-of-Distribution" (OOD) detector or class to reject non-leaf images instead of forcing a prediction.
 *   **Model Optimization:** Implement post-training quantization (FP16 or INT8) via TensorFlow Lite to reduce model size (~13MB to ~3MB) for sub-millisecond edge deployment on mobile/IoT devices.
-*   **Azure Deployment:** Host the docker image on Azure Container Registry (ACR) and deploy as an Azure Web App for Containers, linking to an Azure Blob Storage system to collect user-submitted images for continuous active-learning loops.
+*   **Render Deployment:** Deploy the containerized application as a Render Web Service, linking to a cloud storage system to collect user-submitted images for continuous active-learning loops.
