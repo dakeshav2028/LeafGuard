@@ -6,18 +6,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('file-input');
     const imagePreview = document.getElementById('image-preview');
     const dropZonePrompt = document.getElementById('drop-zone-prompt');
-    
+
     const analyseBtn = document.getElementById('analyse-btn');
     const clearBtn = document.getElementById('clear-btn');
     const btnSpinner = document.getElementById('btn-spinner');
-    
+
     const resultsCard = document.getElementById('results-card');
     const diagnosticTime = document.getElementById('diagnostic-time');
     const diagnosisBadge = document.getElementById('diagnosis-badge');
     const confidenceValue = document.getElementById('confidence-value');
     const primaryProgressFill = document.getElementById('primary-progress-fill');
     const alternativesList = document.getElementById('alternatives-list');
-    
+
     const recCard = document.getElementById('rec-card');
     const recTitle = document.getElementById('rec-title');
     const recDesc = document.getElementById('rec-desc');
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- Drag and Drop Handlers ---
-    
+
     // Prevent default browser behaviors for drag actions
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropZone.addEventListener(eventName, preventDefaults, false);
@@ -97,14 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         selectedFile = file;
-        
+
         // Read file contents for local preview
         const reader = new FileReader();
         reader.onload = (e) => {
             imagePreview.src = e.target.result;
             imagePreview.style.display = 'block';
             dropZonePrompt.style.display = 'none';
-            
+
             // Enable analysis button and show clear button
             analyseBtn.removeAttribute('disabled');
             clearBtn.style.display = 'inline-flex';
@@ -124,11 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
         imagePreview.src = '';
         imagePreview.style.display = 'none';
         dropZonePrompt.style.display = 'flex';
-        
+
         analyseBtn.setAttribute('disabled', 'true');
         clearBtn.style.display = 'none';
         btnSpinner.style.display = 'none';
-        
+
         resultsCard.style.display = 'none';
     }
 
@@ -140,13 +140,14 @@ document.addEventListener('DOMContentLoaded', () => {
         analyseBtn.setAttribute('disabled', 'true');
         btnSpinner.style.display = 'inline-block';
         analyseBtn.querySelector('.btn-text').textContent = 'Analyzing...';
-        
+
         // Hide previous results during new request
         resultsCard.style.display = 'none';
 
         const formData = new FormData();
         formData.append('file', selectedFile);
 
+        const startTime = performance.now();
         try {
             console.log(`Sending image to FastAPI API endpoint: ${API_URL}`);
             const response = await fetch(API_URL, {
@@ -160,8 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            renderResults(data);
-            
+            const duration = Math.round(performance.now() - startTime);
+            renderResults(data, duration);
+
         } catch (error) {
             console.error('Error contacting FastAPI server:', error);
             alert(`An error occurred: ${error.message}`);
@@ -182,17 +184,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Render server prediction payload to UI cards
-    function renderResults(data) {
+    function renderResults(data, duration) {
         // Display results panel
         resultsCard.style.display = 'flex';
-        
+
         // Update diagnostic completion timestamp
         const now = new Date();
-        diagnosticTime.textContent = `Analysis completed at ${now.toLocaleTimeString()} | Duration: ~150ms`;
+        diagnosticTime.textContent = `Analysis completed at ${now.toLocaleTimeString()} | Duration: ${duration}ms`;
 
         const predClass = data.predicted_class;
         const confidencePct = (data.confidence * 100).toFixed(1);
-        
+
         // Update Primary Diagnosis Badge & Value
         diagnosisBadge.textContent = formatClassName(predClass);
         confidenceValue.textContent = `${confidencePct}%`;
@@ -208,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset badge status classes and assign the correct one
         diagnosisBadge.className = 'diagnosis-badge';
         primaryProgressFill.className = 'progress-bar-fill';
-        
+
         if (ref.status === 'healthy') {
             diagnosisBadge.classList.add('status-healthy');
             primaryProgressFill.classList.add('bar-healthy');
@@ -235,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alternativesList.innerHTML = '';
         data.predictions.forEach(pred => {
             const pct = (pred.confidence * 100).toFixed(1);
-            
+
             const altRow = document.createElement('div');
             altRow.className = 'alt-row';
             altRow.innerHTML = `
@@ -247,9 +249,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="alt-bar-fill" style="width: 0%"></div>
                 </div>
             `;
-            
+
             alternativesList.appendChild(altRow);
-            
+
             // Animate alternative progress bars
             setTimeout(() => {
                 altRow.querySelector('.alt-bar-fill').style.width = `${pct}%`;
