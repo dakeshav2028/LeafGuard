@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
+    const mainContent = document.querySelector('.main-content');
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('file-input');
     const imagePreview = document.getElementById('image-preview');
@@ -130,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnSpinner.style.display = 'none';
 
         resultsCard.style.display = 'none';
+        mainContent.classList.add('results-hidden');
     }
 
     // --- API Request & Prediction Handling ---
@@ -143,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Hide previous results during new request
         resultsCard.style.display = 'none';
+        mainContent.classList.add('results-hidden');
 
         const formData = new FormData();
         formData.append('file', selectedFile);
@@ -187,6 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderResults(data, duration) {
         // Display results panel
         resultsCard.style.display = 'flex';
+        mainContent.classList.remove('results-hidden');
 
         // Update diagnostic completion timestamp
         const now = new Date();
