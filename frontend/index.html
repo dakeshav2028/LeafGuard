@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,11 @@
     <!-- Modern typography from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="background-decor blur-circle-1"></div>
     <div class="background-decor blur-circle-2"></div>
@@ -20,7 +23,7 @@
                 <span class="logo-icon">🌿</span>
                 <h1>LeafGuard</h1>
             </div>
-            <p class="subtitle">AI-powered agricultural disease diagnostics tool. Portfolio project for Celebal Technologies.</p>
+            <p class="subtitle">AI-powered agricultural disease diagnostics tool.</p>
         </header>
 
         <main class="main-content">
@@ -30,11 +33,12 @@
                     <h2>Diagnose Plant Leaf</h2>
                     <p>Upload an image of a potato leaf to analyze its health state</p>
                 </div>
-                
+
                 <div class="drop-zone" id="drop-zone">
                     <div class="drop-zone-content" id="drop-zone-prompt">
                         <div class="upload-icon">📤</div>
-                        <p class="upload-text"><strong>Drag & drop leaf photo here</strong> or <span class="browse-btn">Browse files</span></p>
+                        <p class="upload-text"><strong>Drag & drop leaf photo here</strong> or <span
+                                class="browse-btn">Browse files</span></p>
                         <p class="file-limits">Supports JPG, JPEG, PNG</p>
                     </div>
                     <input type="file" id="file-input" accept="image/*" class="file-input">
@@ -93,7 +97,7 @@
         <footer class="app-footer">
             <div class="footer-info">
                 <p><strong>LeafGuard</strong> is powered by MobileNetV2 Transfer Learning.</p>
-                <p class="meta-tag">Accuracy: ~95% | Target Crop: Potato (3 classes) | CPU Deployment</p>
+                <p class="meta-tag">Accuracy: ~95% | Target Crop: Potato (3 classes)</p>
             </div>
             <p class="copyright">&copy; 2026 Keshav Sarda. Designed for Data Science Portfolio.</p>
         </footer>
@@ -101,4 +105,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>
